@@ -9,3 +9,8 @@ class AddNoteEvent extends NoteEvent{
 }
 
 class FetchNoteEvent extends NoteEvent{}
+
+class UpdateNoteEvent extends NoteEvent{
+  NoteModel updateNote;
+  UpdateNoteEvent({required this.updateNote});
+}

@@ -32,5 +32,18 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       var mArrNotes = await db.fetchAllNotes();
       myEmit(NoteLoadedState(arrNotes: mArrNotes));
     });
+
+    ///(update note) event handling
+    on<UpdateNoteEvent>((event, emit) async{
+      emit(NoteLoadingState());
+      bool check = await db.updateNote(event.updateNote);
+
+      if(check){
+        var mData = await db.fetchAllNotes();
+        emit(NoteLoadedState(arrNotes: mData));
+      } else {
+        emit(NoteErrorState(errorMsg: "Note Not Updated!!"));
+      }
+    });
   }
 }
